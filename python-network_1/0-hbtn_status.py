@@ -1,15 +1,16 @@
 #!/usr/bin/python3
-"""Fetch the school status endpoint using the Python standard library.
+"""
+Fetch the school status endpoint using the Python standard library.
 
 Display the raw response bytes, their type, and the decoded text.
 """
 
-from urllib.request import urlopen
+import urllib.request
 
 
 def main():
     """Run the HTTP response display from the command line."""
-    with urlopen("https://intranet.hbtn.io/status") as response:
+    with urllib.request.urlopen("https://intranet.hbtn.io/status") as response:
         body = response.read()
     print("Body response:")
     print(f"\t- type: {type(body)}")

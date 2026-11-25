@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Fetch the school status endpoint using the requests library.
+"""
+Fetch the school status endpoint using the requests library.
 
 Display the type of the decoded response and its text.
 """

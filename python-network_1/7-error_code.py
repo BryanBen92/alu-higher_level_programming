@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Fetch a URL using requests and inspect its HTTP status.
+"""
+Fetch a URL using requests and inspect its HTTP status.
 
 Print the response text on success or the numeric HTTP error status.
 """

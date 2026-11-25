@@ -52,3 +52,29 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(square.height, 5)
         with self.assertRaises(ValueError):
             square.update(size=-2)
+
+    def test_constructor_defaults_with_offsets(self):
+        horizontal = Square(1, 2)
+        self.assertEqual((horizontal.size, horizontal.x, horizontal.y),
+                         (1, 2, 0))
+        both = Square(1, 2, 3)
+        self.assertEqual((both.size, both.width, both.height), (1, 1, 1))
+        self.assertEqual((both.x, both.y), (2, 3))
+
+    def test_constructor_rejects_invalid_types(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Square("1")
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Square(1, "2")
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Square(1, 2, "3")
+
+    def test_constructor_rejects_invalid_values(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Square(-1)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Square(0)
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Square(1, -2)
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            Square(1, 2, -3)

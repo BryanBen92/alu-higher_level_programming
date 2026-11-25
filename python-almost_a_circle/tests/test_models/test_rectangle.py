@@ -63,3 +63,39 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(rectangle.width, 4)
         with self.assertRaises(ValueError):
             rectangle.update(width=0)
+
+    def test_constructor_rejects_invalid_types(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle("1", 2)
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, "2")
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Rectangle(1, 2, "3")
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Rectangle(1, 2, 3, "4")
+
+    def test_constructor_rejects_invalid_values(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Rectangle(-1, 2)
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            Rectangle(1, -2)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Rectangle(0, 2)
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            Rectangle(1, 0)
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Rectangle(1, 2, -3)
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            Rectangle(1, 2, 3, -4)
+
+    def test_display_without_offsets(self):
+        for args, expected in (
+            ((2, 3), "##\n##\n##\n"),
+            ((2, 3, 2), "  ##\n  ##\n  ##\n"),
+            ((2, 3, 0, 2), "\n\n##\n##\n##\n"),
+        ):
+            with self.subTest(args=args):
+                output = StringIO()
+                with redirect_stdout(output):
+                    Rectangle(*args).display()
+                self.assertEqual(output.getvalue(), expected)

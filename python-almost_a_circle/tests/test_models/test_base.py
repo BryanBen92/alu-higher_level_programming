@@ -77,3 +77,10 @@ class TestBase(unittest.TestCase):
             self.assertEqual(Path("Rectangle.json").read_text(), "[]")
             self.assertEqual(Path("Square.json").read_text(), "[]")
             self.assertEqual(Rectangle.load_from_file(), [])
+
+    def test_square_save_none(self):
+        with temporary_working_directory():
+            Square.save_to_file([Square(2)])
+            Square.save_to_file(None)
+            self.assertEqual(Path("Square.json").read_text(), "[]")
+            self.assertEqual(Square.load_from_file(), [])

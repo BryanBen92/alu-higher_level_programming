@@ -1,0 +1,43 @@
+Break after each selected punctuation character and trim adjacent spaces.
+
+    >>> from contextlib import redirect_stdout
+    >>> from io import StringIO
+    >>> text_indentation = __import__("5-text_indentation").text_indentation
+    >>> text_indentation("First. Second? Third: fourth")
+    First.
+    <BLANKLINE>
+    Second?
+    <BLANKLINE>
+    Third:
+    <BLANKLINE>
+    fourth
+    >>> text_indentation("  plain text   ")
+    plain text
+    >>> text_indentation("")
+    >>> text_indentation("    ")
+    >>> text_indentation(".?:")
+    .
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    >>> text_indentation("A, B! C; D")
+    A, B! C; D
+    >>> buffer = StringIO()
+    >>> with redirect_stdout(buffer):
+    ...     text_indentation("  One.   Two?  ")
+    >>> buffer.getvalue()
+    'One.\n\nTwo?\n\n'
+    >>> text_indentation(1)
+    Traceback (most recent call last):
+    ...
+    TypeError: text must be a string
+    >>> text_indentation(None)
+    Traceback (most recent call last):
+    ...
+    TypeError: text must be a string
+    >>> text_indentation()  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+    ...
+    TypeError: text_indentation() missing a required argument

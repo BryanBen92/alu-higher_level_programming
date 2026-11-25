@@ -1,20 +1,16 @@
 #!/usr/bin/python3
-"""
-Fetch the school status endpoint using the requests library.
-
-Display the type of the decoded response and its text.
-"""
+"""Fetch the school status page with requests and display its text response."""
 
 import requests
 
 
-def main():
-    """Run the HTTP response display from the command line."""
-    body = requests.get("https://intranet.hbtn.io/status").text
-    print("Body response:")
-    print(f"\t- type: {type(body)}")
-    print(f"\t- content: {body}")
+if __doc__ is None:
+    __doc__ = "Fetch and display the school status page with requests."
 
 
 if __name__ == "__main__":
-    main()
+    response = requests.get("https://intranet.hbtn.io/status")
+    body = response.text
+    print("Body response:")
+    print("\t- type:", type(body))
+    print("\t- content:", body)

@@ -1,23 +1,18 @@
 #!/usr/bin/python3
-"""
-Fetch a URL safely using the Python standard library.
-
-Print the decoded response on success or the HTTP error status.
-"""
+"""Display the UTF-8 response from a URL or report its HTTP error code."""
 
 import sys
 import urllib.error
 import urllib.request
 
 
-def main():
-    """Run the HTTP response display from the command line."""
+if __doc__ is None:
+    __doc__ = "Report the response body or HTTP error code using urllib."
+
+
+if __name__ == "__main__":
     try:
         with urllib.request.urlopen(sys.argv[1]) as response:
             print(response.read().decode("utf-8"))
     except urllib.error.HTTPError as error:
-        print(f"Error code: {error.code}")
-
-
-if __name__ == "__main__":
-    main()
+        print("Error code:", error.code)

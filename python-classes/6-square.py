@@ -32,9 +32,10 @@ class Square:
     @position.setter
     def position(self, value):
         """Store a pair of non-negative integer offsets."""
-        if (not isinstance(value, tuple) or len(value) != 2
-                or any(type(item) is not int or item < 0
-                       for item in value)):
+        is_pair = isinstance(value, tuple) and len(value) == 2
+        if not is_pair or not all(
+            isinstance(item, int) and item >= 0 for item in value
+        ):
             raise TypeError("position must be a tuple of 2 positive integers")
         self.__position = value
 

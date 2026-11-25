@@ -10,3 +10,10 @@ Printing a sorted view preserves the original order.
     []
     >>> MyList([5]).print_sorted()
     [5]
+    >>> values = MyList()
+    >>> values.append(4)
+    >>> values.append(1)
+    >>> values
+    [4, 1]
+    >>> values.print_sorted()
+    [1, 4]
